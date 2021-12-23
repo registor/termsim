@@ -5,8 +5,8 @@ Terminal simulation based on tcolorbox and minted/listings
 
 The `terminal`(`terminal*`) evironment create a tcolorbox to simulate terminal with the eviroment body and the `\termfile`(`\termfile*`) macro from a source file.
 
-The OS type was selected from win10, mac and ubuntu and
-the terminal theme was selected from dark and light with key-value option.
+The OS type was selected from win10, mac, or ubuntu and
+the terminal theme was selected from dark, light, or with key-value option.
 
 All options can be set with `\termset` macro or `terminal`(`terminal*`) eniroment's and
 `\termfile`(`\termfile*`) macro's option
@@ -32,7 +32,7 @@ Contributing
 `terminal`(`terminal*`)环境根据环境内容创建一个`tcolorbox`盒子用于模拟终端窗口，
 `\termfile`(`\termfile*`)命令根据载入的文件内容创建一个`tcolorbox`盒子用于模拟终端窗口。
 
-可以通过`terminal`(`terminal*`)环境或`\termfile`(`\termfile*`)命令的`key-value`选项设置操作系统类型(win10、mac或ubuntu)，
+可以通过`terminal`(`terminal*`)环境或`\termfile`(`\termfile*`)命令的`key-value`选项设置操作系统类型(win10、mac或ubuntu)，并可选择暗色(dark)、亮色(light)或白色(white)颜色主题。
 
 所有选项即可以通过环境或命令选项设置，也可以通过`\termset`命令进行设置。
 
