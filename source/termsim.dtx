@@ -1,0 +1,1548 @@
+% \iffalse meta-comment
+% !TEX program  = XeLaTeX
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+Terminal simulation based on tcolorbox and minted/listings
+=======
+
+`termsim` is a LaTeX package developed based on tcolorbox and minted/listings, which provides a environment `terminal`(`terminal*`) and a macro `\termfile`(`\termfile*`) to simulate Win10, Ubuntu and Mac terminal.
+
+The `terminal`(`terminal*`) evironment create a tcolorbox to simulate terminal with the eviroment body and the `\termfile`(`\termfile*`) macro from a source file.
+
+The OS type was selected from win10, mac and ubuntu and
+the terminal theme was selected from dark and light with key-value option.
+
+All options can be set with `\termset` macro or `terminal`(`terminal*`) eniroment's and
+`\termfile`(`\termfile*`) macro's option
+
+You can read the manual (in Chinese) for more details and examples.
+
+Contributing
+------------
+
+1. github repository:
+    1. repository: [termsim](https://github.com/registor/termsim)
+    2. Issues and pull requests are welcome. [issue](https://github.com/registor/termsim/issues) or [pull request](https://github.com/registor/termsim/pulls).
+
+2. gitee repository:
+    1. repository: [termsim](https://gitee.com/nwafu_nan/termsim)
+    2. Issues and pull requests are welcome. [issue](https://gitee.com/nwafu_nan/termsim/issues) or [pull request](https://gitee.com/nwafu_nan/termsim/pulls).
+
+基于tcolorbox的终端模拟宏包
+=======
+
+`termsim`是一个基于tcolorbox的用LaTeX3开发的终端模拟LaTeX宏包，它提供了用于模拟终端窗口的`terminal`(`terminal*`)环境和`\termfile`(`\termfile*`)命令，以模拟Win10、Ubuntu或Mac的终端窗口。
+
+`terminal`(`terminal*`)环境根据环境内容创建一个`tcolorbox`盒子用于模拟终端窗口，
+`\termfile`(`\termfile*`)命令根据载入的文件内容创建一个`tcolorbox`盒子用于模拟终端窗口。
+
+可以通过`terminal`(`terminal*`)环境或`\termfile`(`\termfile*`)命令的`key-value`选项设置操作系统类型(win10、mac或ubuntu)，
+
+所有选项即可以通过环境或命令选项设置，也可以通过`\termset`命令进行设置。
+
+可以通过阅读宏包手册(中文)以也解该宏包更多的使用细节和使用样例。
+
+###  参与贡献
+---------------------
+
+1. github仓库:
+    (1). 仓库地址: [termsim](https://github.com/registor/termsim)
+    (2). Issues和PR: [issue](https://github.com/registor/termsim/issues) or [pull request](https://github.com/registor/termsim/pulls).
+
+2. gitee仓库:
+    (1). 仓库地址: [termsim-l3](https://gitee.com/nwafu_nan/termsim)
+    (2). Issues and PR: [issue](https://gitee.com/nwafu_nan/termsim/issues) or [pull request](https://gitee.com/nwafu_nan/termsim/pulls).
+
+Copyright and Licence
+---------------------
+
+    Copyright (C) 2020-2021 by Nan Geng <nangeng@nwafu.edu.cn>
+    ----------------------------------------------------------------------
+
+    This work may be distributed and/or modified under the
+    conditions of the LaTeX Project Public License, either
+    version 1.3c of this license or (at your option) any later
+    version. This version of this license is in
+       http://www.latex-project.org/lppl/lppl-1-3c.txt
+    and the latest version of this license is in
+       http://www.latex-project.org/lppl.tx        \IfBooleanTF{#1}
+          {
+            \bool_set_true:N  \l_@@_comment_bool
+          }{
+t
+    and version 1.3 or later is part of all distributions of
+    LaTeX version 2005/12/01 or later.
+
+    This work has the LPPL maintenance status "maintained".
+
+    The Current Maintainer of this work is Nan Geng.
+
+    This package consists of the file  termsim.dtx,
+                 and the derived files termsim.sty,
+                                       termsim.pdf,
+                                       termsim.ins,
+                                       README.md (this file).
+
+%</readme>
+%<*internal>
+\fi
+\begingroup
+  \def\temp{LaTeX2e}
+\expandafter\endgroup\ifx\temp\fmtname\else
+\csname fi\endcsname
+%</internal>
+%<*install>
+
+\input ctxdocstrip %
+
+\let\MetaPrefix\relax
+
+\preamble
+
+    Copyright (C) 2020-2021 by Nan Geng <nangeng@nwafu.edu.cn>
+--------------------------------------------------------------------------
+
+    This work may be distributed and/or modified under the
+    conditions of the LaTeX Project Public License, either
+    version 1.3c of this license or (at your option) any later
+    version. This version of this license is in
+       http://www.latex-project.org/lppl/lppl-1-3c.txt
+    and the latest version of this license is in
+       http://www.latex-project.org/lppl.txt
+    and version 1.3 or later is part of all distributions of
+    LaTeX version 2005/12/01 or later.
+
+    This work has the LPPL maintenance status "maintained".
+
+    The Current Maintainer of this work is Nan Geng.
+
+--------------------------------------------------------------------------
+
+\endpreamble
+
+\postamble
+
+    This package consists of the file  termsim.dtx,
+                 and the derived files termsim.sty,
+                                       termsim.pdf,
+                                       termsim.ins,
+                                       README.md.
+\endpostamble
+
+\declarepostamble\emptypostamble
+\endpostamble
+
+\def\MetaPrefix{-- }
+
+
+\let\MetaPrefix\DoubleperCent
+
+\generate
+  {
+%</install>
+%<*internal>
+    \usedir{source/xelatex/termsim}
+    \file{termsim.ins} {\from{\jobname.dtx}{install}}
+%</internal>
+%<*install>
+    \usedir{xetex/xelatex/termsim}
+    \file{termsim.sty} {\from{\jobname.dtx}{package}}
+    \nopreamble\nopostamble
+    \usedir{doc/xelatex/termsim}
+    \file{README.md}   {\from{\jobname.dtx}{readme}}
+  }
+
+\endbatchfile
+%</install>
+%<*internal>
+\fi
+%</internal>
+%<package>\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+%<package>\RequirePackage{expl3}
+%<+package>\GetIdInfo$Id: termsim.dtx 1.0.0 2021-12-14 08:00:00 +0800 Nan Geng <nangeng@nwafu.edu.cn> $
+%<package>  {Terminal simulation with tcolorbox and minted/listings.}
+%<package>\ProvidesExplPackage{\ExplFileName}
+%<package>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%<*driver>
+\documentclass{ctxdoc}
+\usepackage{minted}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{xcolor-material}
+\usepackage{termsim}
+\renewcommand*\marg[1]{\{\meta{#1}\}}
+\renewcommand*\oarg[1]{[\meta{#1}]}
+\renewcommand*\parg[1]{(\meta{#1})}
+\NewDocumentCommand{\init}{+v}{\hspace{\fill}初始值~=~\textcolor{blue}{\bfseries#1}}
+\DeclareDocumentCommand\opt{m}{\texttt{#1}}
+\DeclareDocumentCommand\kvopt{mm}
+  {\texttt{#1\breakablethinspace=\breakablethinspace#2}}
+\def\breakablethinspace{\hskip 0.16667em\relax}
+\begin{document}
+%<!--CODEDOC-->  \DisableImplementation
+  \EnableImplementation
+  \DocInput{\jobname.dtx}
+  \IndexLayout
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \changes{v1.0.0}{2021/12/14}{开始编写模板}
+%
+% \CheckSum{376}
+% \GetFileId{termsim.sty}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \title{\bfseries\pkg{termsim}：终端窗口模拟宏包\\\bfseries\pkg{termsim}：terminal simulation pachage}
+% \author{耿楠\\ \path{nangeng@nwafu.edu.cn}}
+% \date{\filedate\qquad\fileversion\thanks{\url{https://github.com/registor/termsim}}\thanks{\url{https://gitee.com/nwafu_nan/termsim}}}
+% \maketitle
+%
+% \begin{documentation}
+%
+% \begin{abstract}
+%
+% \pkg{termsim} 是一个基于\pkg{tcolorbox}宏包，用\LaTeX3 开发的 \LaTeX 宏包，
+% 它提供了用于模拟Win10、Ubuntu和Mac的终端窗口的\env{terminal}环境和\tn{termfile}命令，
+% \env{terminal}环境将环境中的内容在模拟的终端窗口中输出，
+% 而\tn{termfile}命令用于将指定的文件读入后在模拟的终端窗口中输出。
+% 同时提供了\env{terminal*}环境和\tn{termfile*}命令，用于模拟带底线注释的终端窗口。
+% 操作系统类型和终端窗口颜色主题等样式，
+% 可以通过\tn{termset}命令或\env{terminal}(\env{terminal*})环境和
+% \tn{termfile}(\tn{termfile*})命令的可选项进行设置。
+%
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{简要说明}
+%
+% \pkg{termsim} 是一个用于模拟Win10、Ubuntu和Mac终端窗口的\LaTeX{}宏包，
+% 用于实现对Win10、Mac或Ubuntu终端窗口的模拟排版。
+%
+% \section{用户接口}
+%
+% \subsection{\env{terminal}和\env{terminal*}环境}
+%
+% \begin{function}[added=2021-12-17,updated=2021-12-17]{terminal,terminal*}
+%   \begin{syntax}
+%     \tn{begin}\{terminal\} \oarg{外观选项} \Arg{窗口标题}
+%     .....
+%     \tn{end}\{terminal\}
+%
+%     \tn{begin}\{terminal*\} \oarg{外观选项} \oarg{底线注释} \Arg{窗口标题}
+%     .....
+%     \tn{end}\{terminal*\}
+%   \end{syntax}
+%
+%   排版终端窗口，内容来自于由环境内容，
+%   可以通过\Arg{窗口标题}为窗口设置标题。
+%
+%   \oarg{外观选项}中通过key-value方式设置终端窗口的外观。
+%
+%   星号环境\texttt{terminal*}用于为终端窗口添加底线注释，
+%   注意此时需要在\oarg{外观选项}后提供\oarg{底线注释}内容。
+%
+%   终端窗口的外观也可以通过\tn{termset}命令的逗号分隔
+%   key-value列表进行设置。
+%
+% \end{function}
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \termset{os=win10,theme=dark,shstretch=1.0}
+%     \begin{terminal}{窗口标题}
+%       C:\Users\Administrator 的目录
+%       2018/07/21  15:39    <DIR>          .
+%       2018/07/21  15:39    <DIR>          ..
+%       2018/07/13  08:35    <DIR>          3D Objects
+%       2018/07/13  08:35    <DIR>          Contacts
+%       2018/08/06  07:46    <DIR>          Desktop
+%                       2 个文件      6,029,312 字节
+%                      18 个目录 14,035,107,840 可用字节
+%     \end{terminal}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=win10,theme=dark,shstretch=1.0}
+%\begin{terminal}{窗口标题}
+%C:\Users\Administrator 的目录
+%2018/07/21  15:39    <DIR>          .
+%2018/07/21  15:39    <DIR>          ..
+%2018/07/13  08:35    <DIR>          3D Objects
+%2018/07/13  08:35    <DIR>          Contacts
+%2018/08/06  07:46    <DIR>          Desktop
+%                2 个文件      6,029,312 字节
+%               18 个目录 14,035,107,840 可用字节
+%\end{terminal}
+%\end{minipage}
+%\end{center}
+%
+% \subsection{\tn{termfile}和\tn{termfile*}命令}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{\termfile,\termfile*}
+%   \begin{syntax}
+%     \tn{termfile}  \oarg{外观选项} \Arg{窗口标题} \Arg{内容文件}
+%     \tn{termfile*} \oarg{外观选项} \oarg{底线注释} \Arg{窗口标题} \Arg{内容文件}
+%   \end{syntax}
+%
+%   排版终端窗口，内容来自于由\Arg{内容文件}，
+%   可以通过\Arg{窗口标题}为窗口设置标题。
+%
+%   \oarg{外观选项}中通过key-value方式设置终端窗口的外观。
+%
+%   星号命令\tn{termfile*}用于为终端窗口添加底线注释，
+%   注意此时需要在\oarg{外观选项}后提供\oarg{底线注释}内容。
+%
+%   排版样式也可以通过\tn{termset}命令的逗号分隔的
+%   key-value列表进行设置。
+% \end{function}
+%
+% \newpage
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \termfile{窗口标题}{test.bat}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termfile{窗口标题}{test.bat}
+%\end{minipage}
+%\end{center}
+%
+%\subsection{\tn{termset}命令}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{\termset}
+%   \begin{syntax}
+%     \tn{termset} \marg{键值列表}
+%   \end{syntax}
+%   \tn{termset} 的参数是一组由(英文)逗号分隔的选项列表，
+%   列表中的选项采用 \kvopt{\meta{key}}{\meta{value}} 形式。
+%   部分选项的\meta{value} 可以省略。
+%   对于同一选项，后续设置会覆盖以前的设置。
+%
+%   多数选项都设有默认值。
+%
+%   \tn{termset} 采用 \LaTeX3 风格的键值设置，支持不同类型以及多种
+%   层次的选项设定。键值列表中，“|=|”左右的空格不影响设置；但需注意，
+%   参数列表中\textbf{不可以出现空行}。
+%
+%   布尔型的参数 \kvopt{\meta{选项}}{true} 中的“|= true|”可以省略。
+% \end{function}
+%
+% \section{选项说明}
+%
+%   \pkg{termsim}宏包提供了一系列选项，以设置终端窗口外观样式。
+%   载入\pkg{termsim}宏包后，以下选项均可通过用户接口命令\tn{termset}进行设置。
+%   同时，这些选项也可以通过\env{terminal}(\env{terminal*})环境或
+%   \tn{termfile}(\tn{termfile*})命令的\oarg{外观选项}进行设置。
+%
+% \subsection{代码引擎}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{minted}
+%   \begin{syntax}
+%     minted = <\TTF> \init{true}
+%   \end{syntax}
+%   \opt{minted} 用于设置代码排版引擎，如为\textbf{true}则使用\pkg{minted}宏包
+%   排版终端窗口中的内容，如为\textbf{false}则使用\pkg{listings}宏包排版
+%   终端窗口中的内容。默认值为\textbf{true}。
+% \end{function}
+%
+% \subsection{操作系统}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{os}
+%   \begin{syntax}
+%     os =  <win10|mac|ubuntu> \init{win10}
+%   \end{syntax}
+%   \opt{os} 用于设置终端窗口的操作系统类型，默认值为\textbf{win10}。
+% \end{function}
+%
+% \subsection{颜色主题}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{theme}
+%   \begin{syntax}
+%     theme =  <dark|light|white> \init{dark}
+%   \end{syntax}
+%   \opt{theme} 用于设置终端窗口的颜色主题，默认值为\textbf{dark}。
+% \end{function}
+%
+% \subsection{代码样式}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{shstyle}
+%   \begin{syntax}
+%     shstyle = \Arg{代码样式} \init{bw}
+%   \end{syntax}
+%   \opt{shstyle} 用于设置终端窗口内容(代码)的样式，仅对\textbf{minted}
+%   引擎有效，默认值为\textbf{bw}。
+% \end{function}
+%
+% \subsection{代码字号}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{shsize}
+%   \begin{syntax}
+%     shsize = \Arg{字号命令} \init{\small}
+%   \end{syntax}
+%   \opt{shsize} 用于设置终端窗口内容(代码)的字号，仅对\textbf{minted}
+%   引擎有效，默认值为\textbf{\tn{small}}。
+% \end{function}
+%
+% \subsection{底线注释格式}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{commentf}
+%   \begin{syntax}
+%     commentf = \Arg{格式命令组} \init{\small\sffamily}
+%   \end{syntax}
+%   \opt{commentf} 用于设置终端窗口底线注释的格式，
+%   默认值为\textbf{\tn{small}\tn{sffamily}}。
+% \end{function}
+%
+% \subsection{代码行距}
+%
+% \begin{function}[added=2021-12-18,updated=2021-12-18]{shstretch}
+%   \begin{syntax}
+%     shstretch = \Arg{浮点数} \init{1.0}
+%   \end{syntax}
+%   \opt{shstretch} 用于设置终端窗口内容(代码)的行距，仅对\textbf{minted}
+%   引擎有效，取浮点数。默认值为\textbf{1.0}。
+% \end{function}
+%
+% \newpage
+%
+% \section{排版样例}
+%
+% \pkg{termsim}宏包可用于需要排版操作系统终端窗口的场合，
+% 以避免使用截图。终端窗口可以带/不带底线注释，也可以
+% 是暗色(dark)、亮色(light)或白色(white)颜色主题。
+%
+% \subsection{Win10终端窗口}
+%
+% \subsubsection{\env{terminal}/\env{terminal*}环境}
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \termset{os=win10,theme=dark,shstretch=1.0}
+%     \begin{terminal}{窗口标题}
+%       C:\Users\Administrator 的目录
+%       2018/07/21  15:39    <DIR>          .
+%       2018/07/21  15:39    <DIR>          ..
+%       2018/07/13  08:35    <DIR>          3D Objects
+%       2018/07/13  08:35    <DIR>          Contacts
+%       2018/08/06  07:46    <DIR>          Desktop
+%                       2 个文件      6,029,312 字节
+%                      18 个目录 14,035,107,840 可用字节
+%     \end{terminal}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=win10,theme=dark,shstretch=1.0}
+%\begin{terminal}{窗口标题}
+%C:\Users\Administrator 的目录
+%2018/07/21  15:39    <DIR>          .
+%2018/07/21  15:39    <DIR>          ..
+%2018/07/13  08:35    <DIR>          3D Objects
+%2018/07/13  08:35    <DIR>          Contacts
+%2018/08/06  07:46    <DIR>          Desktop
+%                2 个文件      6,029,312 字节
+%               18 个目录 14,035,107,840 可用字节
+%\end{terminal}
+%\end{minipage}
+%\end{center}
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \begin{terminal*}[os=win10,theme=light][底线注释]{窗口标题}
+%       C:\Users\Administrator 的目录
+%       2018/07/21  15:39    <DIR>          .
+%       2018/07/21  15:39    <DIR>          ..
+%       2018/07/13  08:35    <DIR>          3D Objects
+%       2018/07/13  08:35    <DIR>          Contacts
+%       2018/08/06  07:46    <DIR>          Desktop
+%                       2 个文件      6,029,312 字节
+%                      18 个目录 14,035,107,840 可用字节
+%     \end{terminal*}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\begin{terminal*}[os=win10,theme=light][底线注释]{窗口标题}
+%C:\Users\Administrator 的目录
+%2018/07/21  15:39    <DIR>          .
+%2018/07/21  15:39    <DIR>          ..
+%2018/07/13  08:35    <DIR>          3D Objects
+%2018/07/13  08:35    <DIR>          Contacts
+%2018/08/06  07:46    <DIR>          Desktop
+%                2 个文件      6,029,312 字节
+%               18 个目录 14,035,107,840 可用字节
+%\end{terminal*}
+%\end{minipage}
+%\end{center}
+%
+%
+% \subsubsection{\tn{termfile}/\tn{termfile*}命令}
+%
+%   \begin{Verbatim}[frame=none,numbers=left]
+%     \centering
+%     \termset{os=win10,theme=dark}
+%     \termfile{窗口标题}{test.bat}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=win10,theme=dark}
+%\termfile{窗口标题}{test.bat}
+%\end{minipage}
+%\end{center}
+%
+%   \begin{Verbatim}[frame=none,numbers=left]
+%     \centering
+%     \termfile*[os=win10,theme=light][底线注释]{窗口标题}{test.bat}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termfile*[os=win10,theme=light][底线注释]{窗口标题}{test.bat}
+%\end{minipage}
+%\end{center}
+%
+% \newpage
+% \subsection{Mac终端窗口}
+%
+% \subsubsection{\env{terminal}/\env{terminal*}环境}
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \termset{os=mac,theme=dark}
+%     \begin{terminal}{窗口标题}
+%       xxxxxx@xxxxxx-lap:~$ ls
+%       Desktop     Downloads   p2         Public   Templates   Videos
+%       Documents   Music       Pictures   snap    '#test#'     workspace
+%       xxxxxx@xxxxxx-lap:~$
+%     \end{terminal}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=mac,theme=dark}
+%\begin{terminal}{窗口标题}
+%xxxxxx@xxxxxx-lap:~$ ls
+%Desktop     Downloads   p2         Public   Templates   Videos
+%Documents   Music       Pictures   snap    '#test#'     workspace
+%xxxxxx@xxxxxx-lap:~$
+%\end{terminal}
+%\end{minipage}
+%\end{center}
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \begin{terminal*}[os=mac,theme=light][底线注释]{窗口标题}
+%       xxxxxx@xxxxxx-lap:~$ ls
+%       Desktop     Downloads   p2         Public   Templates   Videos
+%       Documents   Music       Pictures   snap    '#test#'     workspace
+%       xxxxxx@xxxxxx-lap:~$
+%     \end{terminal*}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\begin{terminal*}[os=mac,theme=light][底线注释]{窗口标题}
+%xxxxxx@xxxxxx-lap:~$ ls
+%Desktop     Downloads   p2         Public   Templates   Videos
+%Documents   Music       Pictures   snap    '#test#'     workspace
+%xxxxxx@xxxxxx-lap:~$
+%\end{terminal*}
+%\end{minipage}
+%\end{center}
+%
+% \subsubsection{\tn{termfile}/\tn{termfile*}命令}
+%
+%   \begin{Verbatim}[frame=none,numbers=left]
+%     \centering
+%     \termset{os=mac,theme=dark}
+%     \termfile{窗口标题}{testls}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=mac,theme=dark}
+%\termfile{窗口标题}{testls}
+%\end{minipage}
+%\end{center}
+% \newpage
+%   \begin{Verbatim}[frame=none,numbers=left]
+%     \centering
+%     \termfile*[os=mac,theme=light][底线注释]{窗口标题}{testls}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termfile*[os=mac,theme=light][底线注释]{窗口标题}{testls}
+%\end{minipage}
+%\end{center}
+%
+% \subsection{Ubuntu终端窗口}
+%
+% \subsubsection{\env{terminal}/\env{terminal*}环境}
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \termset{os=ubuntu,theme=dark}
+%     \begin{terminal}{窗口标题}
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%       git clone git@gitee.com:xxxxxx/xxxxxx
+%       正克隆到 'xxxxxx'...
+%       remote: Enumerating objects: 106, done.
+%       remote: Counting objects: 100% (106/106), done.
+%       remote: Compressing objects: 100% (105/105), done.
+%       remote: Total 106 (delta 9), reused 0 (delta 0)
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%       完成.
+%       处理 delta 中: 100% (9/9), 完成.
+%       正在检出文件: 100% (75/75), 完成.
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%     \end{terminal}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=ubuntu,theme=dark}
+%\begin{terminal}{窗口标题}
+%xxxxxx@xxxxxx-lap:~/Desktop $
+%git clone git@gitee.com:xxxxxx/xxxxxx
+%正克隆到 'xxxxxx'...
+%remote: Enumerating objects: 106, done.
+%remote: Counting objects: 100% (106/106), done.
+%remote: Compressing objects: 100% (105/105), done.
+%remote: Total 106 (delta 9), reused 0 (delta 0)
+%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%完成.
+%处理 delta 中: 100% (9/9), 完成.
+%正在检出文件: 100% (75/75), 完成.
+%xxxxxx@xxxxxx-lap:~/Desktop $
+%\end{terminal}
+%\end{minipage}
+%\end{center}
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \begin{terminal*}[os=ubuntu,theme=light][底线注释]{窗口标题}
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%       git clone git@gitee.com:xxxxxx/xxxxxx
+%       正克隆到 'xxxxxx'...
+%       remote: Enumerating objects: 106, done.
+%       remote: Counting objects: 100% (106/106), done.
+%       remote: Compressing objects: 100% (105/105), done.
+%       remote: Total 106 (delta 9), reused 0 (delta 0)
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%       完成.
+%       处理 delta 中: 100% (9/9), 完成.
+%       正在检出文件: 100% (75/75), 完成.
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%     \end{terminal*}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\begin{terminal*}[os=ubuntu,theme=light][底线注释]{窗口标题}
+%xxxxxx@xxxxxx-lap:~/Desktop $
+%git clone git@gitee.com:xxxxxx/xxxxxx
+%正克隆到 'xxxxxx'...
+%remote: Enumerating objects: 106, done.
+%remote: Counting objects: 100% (106/106), done.
+%remote: Compressing objects: 100% (105/105), done.
+%remote: Total 106 (delta 9), reused 0 (delta 0)
+%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%完成.
+%处理 delta 中: 100% (9/9), 完成.
+%正在检出文件: 100% (75/75), 完成.
+%xxxxxx@xxxxxx-lap:~/Desktop $
+%\end{terminal*}
+%\end{minipage}
+%\end{center}
+%
+% \subsubsection{\tn{termfile}/\tn{termfile*}命令}
+%
+%   \begin{Verbatim}[frame=none,numbers=left]
+%     \centering
+%     \termset{os=ubuntu,theme=dark}
+%     \termfile{窗口标题}{testsh}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=ubuntu,theme=dark}
+%\termfile{窗口标题}{testsh}
+%\end{minipage}
+%\end{center}
+%
+%   \begin{Verbatim}[frame=none,numbers=left]
+%     \centering
+%     \termfile*[os=ubuntu,theme=light][底线注释]{窗口标题}{testsh}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termfile*[os=ubuntu,theme=light][底线注释]{窗口标题}{testsh}
+%\end{minipage}
+%\end{center}
+%
+%  也可以使用\texttt{white}颜色主题，使用白底黑字排版，以便
+%  打印输出。
+%
+%   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+%     \centering
+%     \termset{os=ubuntu,theme=white}
+%     \begin{terminal}{窗口标题}
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%       git clone git@gitee.com:xxxxxx/xxxxxx
+%       正克隆到 'xxxxxx'...
+%       remote: Enumerating objects: 106, done.
+%       remote: Counting objects: 100% (106/106), done.
+%       remote: Compressing objects: 100% (105/105), done.
+%       remote: Total 106 (delta 9), reused 0 (delta 0)
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%       完成.
+%       处理 delta 中: 100% (9/9), 完成.
+%       正在检出文件: 100% (75/75), 完成.
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%     \end{terminal}
+%   \end{Verbatim}
+%
+%\begin{center}
+%\begin{minipage}{0.75\textwidth}
+%\termset{os=ubuntu,theme=white}
+%\begin{terminal}{窗口标题}
+%xxxxxx@xxxxxx-lap:~/Desktop $
+%git clone git@gitee.com:xxxxxx/xxxxxx
+%正克隆到 'xxxxxx'...
+%remote: Enumerating objects: 106, done.
+%remote: Counting objects: 100% (106/106), done.
+%remote: Compressing objects: 100% (105/105), done.
+%remote: Total 106 (delta 9), reused 0 (delta 0)
+%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%完成.
+%处理 delta 中: 100% (9/9), 完成.
+%正在检出文件: 100% (75/75), 完成.
+%xxxxxx@xxxxxx-lap:~/Desktop $
+%\end{terminal}
+%\end{minipage}
+%\end{center}
+%
+% \end{documentation}
+%
+% \StopEventually{}
+%
+% \begin{implementation}
+%
+% \section{代码实现}
+%
+% 该宏包使用 \LaTeX3 语法编写，依赖 \pkg{expl3} 环境，
+% 并需调用 \pkg{l3packages}、\pkg{tcolorbox}、\pkg{minted}
+% \pkg{listings}、\pkg{fontawesome5}等宏包。
+%
+% 按照 \LaTeX3 语法，代码中的空格、换行、回车与制表符会完全被忽略，
+% 而下划线“|_|”和冒号“|:|”则可作为一般字母使用。
+% 正常的空格可以使用“|~|”代替；至于 |~| 原来所表示的“带子”，
+% 则要用 \LaTeXe{} 的原始命令 \tn{nobreakspace} 代替。
+%
+% 以下代码中有一些形如 \textcolor[HTML]{2E3191}{\textsf{<*package>}}
+% 的标记，这是 \pkg{DocStrip} 中的“guard”，用来选择性地提取文件。
+% “\textsf{*}”和“\textsf{/}”分别表示该部分的开始和结束。不含
+% “\textsf{*}”和“\textsf{/}”的 guard 出现在行号右侧，它们用来确定
+% 单独一行代码的归属。这些 guard 的颜色深浅不一，用以明确嵌套关系。
+%
+% 另有若干形如 \textcolor[HTML]{AD1457}{\textsf{<@@=termsim>}} 的 guard，
+% 它们由 \pkg{l3docstrip} 定义，用来标识名字空间（模块）。
+%
+% \subsection{环境检测与准备}
+%
+%    \begin{macrocode}
+%<*package>
+%<@@=termsim>
+%    \end{macrocode}
+%
+% \subsection{载入宏包}
+%
+% 载入必要的宏包
+%
+%    \begin{macrocode}
+\RequirePackage { xtemplate, l3keys2e, xparse }
+%    \end{macrocode}
+%
+% 载入\pkg{fontawesome5}、\pkg{tcolorbox}、\pkg{varwidth}、
+% \pkg{amssymb}、\pkg{xcolor}、\pkg{etoolbox}宏包。
+%
+%    \begin{macrocode}
+\RequirePackage {fontawesome5, tcolorbox, varwidth, amssymb, xcolor, etoolbox}
+%    \end{macrocode}
+%
+% 解决Expl3中\pkg{tcolorbox}和\pkg{tikz}附加库无法加载的
+% 补丁(需要\pkg{etoolbox}宏包支持)
+%
+% \url{https://tex.stackexchange.com/questions/57424/using-of-usetikzlibrary-in-an-expl3-package-fails}
+%
+%    \begin{macrocode}
+\ExplSyntaxOff
+\patchcmd
+{\tcb@input@library@in}
+  {%
+   \input\tcbpkgprefix#1\relax%
+  }
+  {%
+    \@pushfilename
+    \input\tcbpkgprefix#1\relax%
+    \@popfilename
+  }
+  {}{}
+
+\patchcmd
+{\pgfutil@InputIfFileExists}
+  {\input #1}
+  {%
+    \@pushfilename
+    \xdef\@currname{#1}%
+    \input #1 %
+    \@popfilename
+  }
+  {}{}
+\ExplSyntaxOn
+%    \end{macrocode}
+%
+% 解决minted的autogobble选项与Python3的兼容性问题
+% 和fancyvrb宏包命令变更的问题
+%
+% \url{https://github.com/gpoore/minted/issues/316}
+%
+%    \begin{macrocode}
+\ExplSyntaxOff
+\RequirePackage {regexpatch} % for starred \xpatchcmd which can replace all
+\makeatletter
+% trick, in order to get the integer value from either a macro or register
+% in an expandable way
+\def\minted@use@FancyVerbStartNum{\the\numexpr\FancyVerbStartNum}
+\def\minted@use@FancyVerbStopNum{\the\numexpr\FancyVerbStopNum}
+
+% patch for fivesum computation
+\xpatchcmd*\minted@pygmentize
+  {\ifx\FancyVerbStartNum\z@ 0\else\FancyVerbStartNum\fi}
+  {\minted@use@FancyVerbStartNum}
+  {}{\PatchFailed}
+\xpatchcmd*\minted@pygmentize
+  {\ifx\FancyVerbStopNum\z@ 0\else\FancyVerbStopNum\fi}
+  {\minted@use@FancyVerbStopNum}
+  {}{\PatchFailed}
+
+% patch for option "autogobble"
+\xpatchcmd\minted@autogobble
+  {\ifx\FancyVerbStartNum\z@ 0\else\FancyVerbStartNum\fi}
+  {\minted@use@FancyVerbStartNum}
+  {}{\PatchFailed}
+\xpatchcmd\minted@autogobble
+  {\ifx\FancyVerbStopNum\z@ 0\else\FancyVerbStopNum\fi}
+  {\minted@use@FancyVerbStopNum}
+  {}{\PatchFailed}
+\makeatother
+\ExplSyntaxOn
+%    \end{macrocode}
+%
+% 载入\pkg{tcolorbox}和\pkg{tikz}附加库
+%
+%    \begin{macrocode}
+\tcbuselibrary{skins, xparse, breakable}
+\usetikzlibrary{shapes.geometric}
+%    \end{macrocode}
+%
+% \subsection{定义颜色}
+%
+%    \begin{macrocode}
+\definecolor{mpurple}{RGB}{48,10,36}
+\definecolor{mgray}{RGB}{70,72,67}
+\definecolor{ogray}{RGB}{148,147,141}
+\definecolor{oorange}{RGB}{233,101,56}
+\definecolor{termimal}{RGB}{80,78,70}
+\definecolor{linux}{RGB}{0,39,51}
+\definecolor{windows}{HTML}{00B294}
+\definecolor{cvgrayc}{RGB}{247,247,247}
+\definecolor{cvgray}{RGB}{220,220,220}
+\definecolor{cvgrayb}{RGB}{153,153,153}
+\definecolor{cvblue}{RGB}{223,238,255}
+\definecolor{zhanqing}{RGB}{0,51,113}
+\definecolor{chengse}{RGB}{250,140,53}
+
+\definecolor{AppleRed}{RGB}{255,95,86}
+\definecolor{AppleYellow}{RGB}{255,189,46}
+\definecolor{AppleGreen}{RGB}{39,201,63}
+\definecolor{AppleGray}{HTML}{D8D6D9}
+
+\definecolor{WinGray}{HTML}{FFFFFF}
+\definecolor{WinBlue}{HTML}{1883D7}
+%    \end{macrocode}
+%
+% \subsection{终端盒子图标设计}
+%
+% 用TikZ绘制Ubuntu终端盒子的最小化、关闭和最大化图标
+%
+%    \begin{macrocode}
+\newcommand{\UbuntuMin}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line~width=0.15ex,scale=1]
+    \shade[shading=ball,left~color=ogray,right~color=ogray!50!white] (0,0) circle (0.5);
+    \draw[termimal](-0.3,0)--(0.3,0);
+  \end{tikzpicture}
+}
+\newcommand{\UbuntuClose}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line~width=0.15ex,scale=1]
+    \shade[shading=ball,left~color=oorange,right~color=oorange!70!white] (0,0) circle (0.5);
+    \draw[termimal](-0.25,-0.25)--(0.25,0.25);
+    \draw[termimal](-0.25,0.25)--(0.25,-0.25);
+  \end{tikzpicture}
+}
+\newcommand{\UbuntuMax}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line~width=0.15ex,scale=1]
+    \shade [shading=ball,left~color=ogray,right~color=ogray!50!white] (0,0) circle (0.5);
+    \draw[termimal](-0.25,-0.2)rectangle(0.25,0.2);
+  \end{tikzpicture}
+}
+%    \end{macrocode}
+%
+% 绘制Windows Logo
+%
+%    \begin{macrocode}
+\newcommand{\WindowsLogo}{%
+  \begin{tikzpicture}[square/.style={regular~polygon,regular~polygon~sides=4},
+         scale=0.65, every~node/.style={scale=0.65}]
+    \node[square,draw,fill=black,text=white] at (0, 0) (a) {\small\faTerminal};
+  \end{tikzpicture}
+}
+%    \end{macrocode}
+%
+% \subsection{终端盒子样式设计}
+%
+% 定义Mac终端盒子的tcolorbox样式
+%
+%    \begin{macrocode}
+\tcbset{%
+  skin=enhanced,%
+  apple/.style={%
+    halign~title=center,%
+    skin=bicolor,%
+    boxrule=0.5mm,%
+    breakable,%
+    frame~style={%
+      draw=AppleGray,%
+      left~color=AppleGray,%
+      right~color=AppleGray%
+    },%
+    overlay~unbroken = {%
+      \node[inner~sep=0pt,anchor=north~west,yshift=-4pt,xshift=10pt,text=white]
+        at (frame.north~west) {\textcolor{AppleRed}{\faCircle}$\,$
+                               \textcolor{AppleYellow}{\faCircle}$\,$
+                               \textcolor{AppleGreen}{\faCircle}};
+    },%
+    overlay~first = {%
+      \node[inner~sep=0pt,anchor=north~west,yshift=-4pt,xshift=10pt,text=white]
+        at (frame.north~west) {\textcolor{AppleRed}{\faCircle}$\,$
+                               \textcolor{AppleYellow}{\faCircle}$\,$
+                               \textcolor{AppleGreen}{\faCircle}};
+    },%
+    fonttitle=\sffamily,%\bfseries,%
+    fontupper=\small\sffamily,%
+    fontlower=\small\sffamily%
+  },
+  appledark/.style={%
+    apple,%
+    colback=black,%
+    colupper=white,%
+    colbacktitle=AppleGray,%
+    colframe=AppleGray,%
+    coltitle=black%
+    %coltext=MyLightGray
+  },
+  applelight/.style={%
+    apple,%
+    colback=cvgrayc,%
+    colupper=black,%
+    colbacktitle=AppleGray,%
+    colframe=AppleGray,%
+    coltitle=black%
+  },%
+  applewhite/.style={%
+    apple,%
+    colback=white,%
+    colupper=black,%
+    colbacktitle=AppleGray,%
+    colframe=AppleGray,%
+    coltitle=black%
+  },%
+}%
+%    \end{macrocode}
+%
+% 定义Win10终端盒子的tcolorbox样式
+%
+%    \begin{macrocode}
+\tcbset{%
+  skin=enhanced,%
+  win10/.style={%
+    skin=bicolor,%
+    boxrule=0.1mm,%
+    %toptitle=1ex,
+    sharp~corners,
+    breakable,%
+    colbacktitle=WinGray,%
+    colframe=WinGray,%
+    coltitle=black,%
+    fonttitle=\sffamily,%\bfseries,
+    fontupper=\small\sffamily,
+    fontlower=\small\sffamily,
+    frame~style={%
+      draw=WinBlue,%
+      left~color=WinBlue,%
+      right~color=WinBlue%
+    },%
+    overlay~unbroken = {%
+      \node[inner~sep=0pt,anchor=north~west,yshift=-3pt,xshift=1.2pt,text=black]
+        at (frame.north~west){\WindowsLogo};
+      \node[inner~sep=0pt,anchor=north~east,yshift=-5pt,xshift=-8pt,text=black]
+        at (frame.north~east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};
+    },%
+    overlay~first = {%
+      \node[inner~sep=0pt,anchor=north~west,yshift=-3pt,xshift=1.0pt,text=black]
+        at (frame.north~west){\WindowsLogo};
+      \node[inner~sep=0pt,anchor=north~east,yshift=-5pt,xshift=-8pt,text=black]
+        at (frame.north~east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};
+    }%
+  },
+  win10dark/.style={
+    win10,%
+    colback=black,%
+    colupper=white,%
+    %coltext=white%
+  },
+  win10light/.style={
+    win10,%
+    colback=white,%
+    colupper=black,%
+    %coltext=black%
+  },
+  win10white/.style={
+    win10,%
+    colback=white,%
+    colupper=black,%
+    %coltext=white%
+  },
+}%
+%    \end{macrocode}
+%
+% 定义Ubuntu终端盒子的tcolorbox样式
+%
+%    \begin{macrocode}
+\tcbset{%
+  skin=enhanced,%
+  ubuntu/.style={%
+    halign~title=center,%
+    skin=bicolor,%
+    boxrule=0.5mm,%
+    breakable,% 
+    overlay~unbroken = {%
+      \node[inner~sep=0pt,anchor=north~east,yshift=-3.5pt,xshift=-5pt,text=white]
+        at (frame.north~east){\UbuntuMin$\,$\UbuntuMax$\,$\UbuntuClose};%
+    },%
+    overlay~first = {%
+      \node[inner~sep=0pt,anchor=north~east,yshift=-3.5pt,xshift=-5pt,text=white]
+        at (frame.north~east){\UbuntuMin$\,$\UbuntuMax$\,$\UbuntuClose};%
+    },%
+    fonttitle=\sffamily,%
+    fontupper=\small\sffamily,%
+    fontlower=\small\sffamily%
+  },
+  udark/.style={%
+    ubuntu,%
+    frame~style={%
+      draw=mgray,%
+      left~color=mgray,%
+      right~color=mgray%
+    },%
+    colback=mpurple,%
+    colupper=white,%
+    colbacktitle=mgray,%
+    colframe=mgray,%
+    coltitle=white%
+    %coltext=MyLightGray
+  },
+  ulight/.style={%
+    ubuntu,%
+    frame~style={%
+      draw=cvgrayb,%
+      left~color=cvgrayb,%
+      right~color=cvgrayb%
+    },%
+    colback=cvgrayc,%
+    colupper=black,%
+    colbacktitle=cvgrayb,%
+    colframe=cvgrayb,%
+    coltitle=black%
+  },%
+  uwhite/.style={%
+    ubuntu,%
+    frame~style={%
+      draw=cvgrayb,%
+      left~color=cvgrayb,%
+      right~color=cvgrayb%
+    },%
+    colback=white,%
+    colupper=black,%
+    colbacktitle=cvgrayb,%
+    colframe=cvgrayb,%
+    coltitle=black%
+  },%
+}%
+%    \end{macrocode}
+%
+% \subsection{内部变量声明}
+%
+% \begin{variable}{\l_@@_minted_bool,
+% \l_@@_comment_bool,
+% \l_@@_os_type_int,
+% \l_@@_color_theme_int,
+% \l_@@_code_style_tl,
+% \l_@@_code_fontsize_tl,
+% \l_@@_comment_format_tl,
+% \l_@@_baseline_stretch_tl,
+% \l_@@_linenumber_sep_tl
+%  }
+% 定义变量。
+%
+%    \begin{macrocode}
+\bool_new:N   \l_@@_minted_bool
+\bool_new:N   \l_@@_comment_bool
+\int_new:N    \l_@@_os_type_int
+\int_new:N    \l_@@_color_theme_int
+%
+\tl_new:N     \l_@@_shell_style_tl
+\tl_new:N     \l_@@_shell_fontsize_tl
+\tl_new:N     \l_@@_comment_format_tl
+\tl_new:N     \l_@@_shell_baseline_stretch_tl
+\tl_new:N     \l_@@_linenumber_sep_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{选项处理}
+%
+% 定义 |termsim| 键值类。
+%    \begin{macrocode}
+\keys_define:nn { termsim }
+  {
+%    \end{macrocode}
+%
+% \begin{macro}{minted}
+% 是否使用minted宏包排版代码，默认为true。
+%    \begin{macrocode}
+    minted .bool_set:N = \l_@@_minted_bool,
+    minted .default:n = true,
+    minted .initial:n = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{os}
+% 选择操作系统，默认为Win10。
+%    \begin{macrocode}
+    os .choice:,
+    os .value_required:n = true,
+    os .choices:nn =
+      { win10, mac, ubuntu }
+      { \int_set_eq:NN \l_@@_os_type_int \l_keys_choice_int },
+    os .initial:n = win10,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{theme}
+% 选择终端窗口颜色主题，默认为dark。
+%    \begin{macrocode}
+    theme .choice:,
+    theme .value_required:n = true,
+    theme .choices:nn =
+      { dark, light, white }
+      { \int_set_eq:NN \l_@@_color_theme_int \l_keys_choice_int },
+    theme .initial:n = dark,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{shstyle}
+% 代码样式
+%    \begin{macrocode}
+    shstyle .tl_set:N = \l_@@_shell_style_tl,
+    shstyle .initial:n = bw,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{shsize}
+% 代码字号
+%    \begin{macrocode}
+    shsize .tl_set:N = \l_@@_shell_fontsize_tl,
+    shsize .initial:n = \small,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{commentf}
+% 注释格式
+%    \begin{macrocode}
+    commentf .tl_set:N = \l_@@_comment_format_tl,
+    commentf .initial:n = \small\sffamily,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{shstrech}
+% 基线伸展系数
+%    \begin{macrocode}
+    shstretch .tl_set:N  = \l_@@_shell_baseline_strech_tl,
+    shstretch .initial:n = 1.0,
+%    \end{macrocode}
+% \end{macro}
+%
+% 处理未知选项。
+%    \begin{macrocode}
+    unknown .code:n = { \@@_error:n { unknown-option } }
+  }
+\msg_new:nnn { termsim } { unknown-option }
+  { package~ option~ "\l_keys_key_tl"~ is~ unknown. }
+%    \end{macrocode}
+%
+% 参数默认值
+%    \begin{macrocode}
+\keys_set:nn { termsim }
+  {
+    minted = true,
+    os     = win10,
+    theme  = dark,
+  }
+%    \end{macrocode}
+%
+% \subsection{选项用户接口}
+%
+% \begin{macro}{\termset}
+% 选项设置用户接口。
+%    \begin{macrocode}
+\NewDocumentCommand \termset { m }
+  { \keys_set:nn { termsim } {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{内部函数}
+%
+% \begin{macro}{\@@_minted_tcbset:}
+% 设置终端盒子minted宏包参数。
+%
+%    \begin{macrocode}
+\cs_new:Npn \@@_minted_tcbset:n #1
+  {
+    \tcbset{
+      listing~engine=minted,%
+      minted~style=\tl_use:N \l_@@_shell_style_tl,%
+      minted~options={%
+        breaklines,%
+        fontsize=\tl_use:N \l_@@_shell_fontsize_tl,%
+        baselinestretch=#1,%
+        breaksymbolleft={},%
+        linenos=false,%
+      },%
+      minted~language=bash%
+    }
+  }
+\cs_generate_variant:Nn \@@_minted_tcbset:n {V}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_listings_tcbset:}
+% 设置终端盒子listings宏包参数。
+%
+%    \begin{macrocode}
+\cs_new:Npn \@@_listings_tcbset:
+  {
+    \lstset{% general command to set parameter(s)
+      basicstyle=\ttfamily\tl_use:N \l_@@_shell_fontsize_tl, % print whole listing small
+      keywordstyle=\color{chengse}\bfseries,%
+      identifierstyle=, % nothing happens
+      breaklines=true,
+      commentstyle=\itshape\color{gray},
+      stringstyle=\ttfamily, % typewriter type for strings
+      numbers=left,%
+      numberstyle=\tl_use:N \l_@@_shell_fontsize_tl\sffamily\color[rgb]{0.5,0.5,1.0},%
+    }%
+  }
+\cs_generate_variant:Nn \@@_minted_tcbset:n {V}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_comment_tcbset:}
+% 设置终端盒子底线注释。
+%
+%    \begin{macrocode}
+\cs_new:Npn \@@_comment_tcbset:n #1
+  {
+    \bool_if:NTF { \l_@@_comment_bool }
+    {
+      \tcbset{%
+        listing~and~comment,%
+        colbacklower=tcbcolback!5!yellow!10!white,%
+        collower=linux,%
+        comment={\tl_use:N \l_@@_comment_format_tl~#1},%
+      }
+    }{
+      \tcbset{ listing~only,}
+    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_terminal_theme_select:}
+% 选择终端盒子颜色主题。
+%
+%    \begin{macrocode}
+\cs_new:Npn \@@_terminal_theme_select:
+  {
+    \int_case:nn {\l_@@_os_type_int}
+      {
+        {1}{
+          \int_case:nn {\l_@@_color_theme_int}
+            {
+              {1}{
+                \tcbset{ win10dark, }
+              }
+              {2}{
+                \tcbset{ win10light, }
+              }
+              {3}{
+                \tcbset{ win10white, }
+              }
+            }
+        }
+        {2}{
+          \int_case:nn {\l_@@_color_theme_int}
+            {
+              {1}{
+                \tcbset{ appledark, }
+              }
+              {2}{
+                \tcbset{ applelight, }
+              }
+              {3}{
+                \tcbset{ applewhite, }
+              }
+            }
+        }
+        {3}{
+          \int_case:nn {\l_@@_color_theme_int}
+            {
+              {1}{
+                \tcbset{ udark, }
+              }
+              {2}{
+                \tcbset{ ulight, }
+              }
+              {3}{
+                \tcbset{ uwhite, }
+              }
+            }
+        }
+    }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{定义排版环境和命令}
+%
+%    \begin{macrocode}
+\bool_if:NTF \l_@@_minted_bool
+  {
+%    \end{macrocode}
+%
+%  使用\pkg{minted}宏包排版代码
+%
+%    \begin{macrocode}
+    \tcbuselibrary{minted}
+%    \end{macrocode}
+%
+%  定义不带底线注释的窗口模拟环境\env{terminal}
+%
+%    \begin{macrocode}
+    \NewDocumentEnvironment{ terminal }{O{} O{} m }
+      {
+        \bool_set_false:N  \l_@@_comment_bool
+        \group_begin:
+        \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
+        \@@_comment_tcbset:n { #2 }
+        \@@_terminal_theme_select:
+        \@@_minted_tcbset:V \l_@@_shell_baseline_stretch_tl
+        \tcbset{ title={#3} }%
+        \tcblisting{}
+      }{
+        \endtcblisting
+        \group_end:
+      }
+%    \end{macrocode}
+%
+%  定义带底线注释的窗口模拟环境\env{terminal*}
+%
+%    \begin{macrocode}
+    \NewDocumentEnvironment{ terminal* }{O{} O{} m }
+      {
+        \bool_set_true:N \l_@@_comment_bool
+        \group_begin:
+        \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
+        \@@_comment_tcbset:n { #2 }
+        \@@_terminal_theme_select:
+        \@@_minted_tcbset:V \l_@@_shell_baseline_stretch_tl
+        \tcbset{ title={#3} }%
+        \tcblisting{}
+      }{
+        \endtcblisting
+        \group_end:
+      }
+%    \end{macrocode}
+%
+%  定义带/不带底线注释的从文件读取内容的命令\tn{termfile}/\tn{termfile*}
+%
+%    \begin{macrocode}
+    \NewDocumentCommand \termfile { s O{} O{} m m }
+      {
+        \IfBooleanTF{#1}
+          {
+            \bool_set_true:N  \l_@@_comment_bool
+          }{
+            \bool_set_false:N \l_@@_comment_bool
+          }
+
+        \group_begin:
+        \IfNoValueF{#2}{ \keys_set:nn { termsim } { #2 } }
+        \@@_comment_tcbset:n { #3 }
+        \@@_terminal_theme_select:
+        \@@_minted_tcbset:V \l_@@_shell_baseline_stretch_tl
+        \tcbset{
+          title={#4},
+          listing~file={#5},
+        }%
+        \tcbinputlisting{  }
+        \group_end:
+      }
+  }{
+%    \end{macrocode}
+%
+%  使用\pkg{listings}宏包排版代码，并设置代码样式。
+%
+%    \begin{macrocode}
+    \tcbuselibrary{listings}% 用listings排版代码
+
+    \@@_listings_tcbset:
+
+%    \end{macrocode}
+%
+%  定义不带底线注释的窗口模拟环境\env{terminal}
+%
+%    \begin{macrocode}
+    \NewDocumentEnvironment{ terminal }{O{} O{} m }
+      {
+        \bool_set_false:N \l_@@_comment_bool
+        \group_begin:
+        \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
+        \@@_comment_tcbset:n { #2 }
+        \@@_terminal_theme_select:
+        \tcbset{
+          title={#3},
+          listing~options={
+            language=bash,
+            numbers=none,
+          }
+        }%
+        \tcblisting{}
+      }{
+        \endtcblisting
+        \group_end:
+      }
+%    \end{macrocode}
+%
+%  定义带底线注释的窗口模拟环境\env{terminal*}
+%
+%    \begin{macrocode}
+    \NewDocumentEnvironment{ terminal* }{O{} O{} m }
+      {
+        \bool_set_true:N  \l_@@_comment_bool
+        \group_begin:
+        \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
+        \@@_comment_tcbset:n { #2 }
+        \@@_terminal_theme_select:
+        \tcbset{
+          title={#3},
+          listing~options={
+            language=bash,
+            numbers=none,
+          }
+        }%
+        \tcblisting{}
+      }{
+        \endtcblisting
+        \group_end:
+      }
+%    \end{macrocode}
+%
+%  定义带/不带底线注释的从文件读取内容的命令\tn{termfile}/\tn{termfile*}
+%
+%    \begin{macrocode}
+    \NewDocumentCommand \termfile { s O{} O{} m m }
+      {
+        \IfBooleanTF{#1}
+          {
+            \bool_set_true:N  \l_@@_comment_bool
+          }{
+            \bool_set_false:N \l_@@_comment_bool
+          }
+        \group_begin:
+        \IfNoValueF{#2}{ \keys_set:nn { termsim } { #2 } }
+        \@@_comment_tcbset:n { #3 }
+        \@@_terminal_theme_select:
+        \tcbset{
+          title={#4},
+          listing~file={#5},
+          listing~options={
+            language=bash,
+            numbers=none,
+          },%
+        }%
+        \tcbinputlisting{  }
+        \group_end:
+      }
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\endinput
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%
+% \end{implementation}
+%
+% \Finale
+%
+\endinput

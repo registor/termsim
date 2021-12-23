@@ -1,0 +1,123 @@
+%
+% \subsection{Mac终端窗口}
+%
+% \subsubsection{\env{terminal}/\env{terminal*}环境}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \termset{os=mac,theme=dark}
+%     \begin{terminal}{窗口标题}
+%       xxxxxx@xxxxxx-lap:~$ ls
+%       Desktop     Downloads   p2         Public   Templates   Videos
+%       Documents   Music       Pictures   snap    '#test#'     workspace
+%       xxxxxx@xxxxxx-lap:~$
+%     \end{terminal}
+%   \end{Example}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \begin{terminal*}[os=mac,theme=light][底线注释]{窗口标题}
+%       xxxxxx@xxxxxx-lap:~$ ls
+%       Desktop     Downloads   p2         Public   Templates   Videos
+%       Documents   Music       Pictures   snap    '#test#'     workspace
+%       xxxxxx@xxxxxx-lap:~$
+%     \end{terminal*}
+%   \end{Example}
+%
+% \subsubsection{\tn{termfile}/\tn{termfile*}命令}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \termset{os=mac,theme=dark}
+%     \termfile{窗口标题}{testls}
+%   \end{Example}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \termfile*[os=mac,theme=light][底线注释]{窗口标题}{testls}
+%   \end{Example}
+%
+% \subsection{Ubuntu终端窗口}
+%
+% \subsubsection{\env{terminal}/\env{terminal*}环境}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \termset{os=ubuntu,theme=dark}
+%     \begin{terminal}{窗口标题}
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%       git clone git@gitee.com:xxxxxx/xxxxxx
+%       正克隆到 'xxxxxx'...
+%       remote: Enumerating objects: 106, done.
+%       remote: Counting objects: 100% (106/106), done.
+%       remote: Compressing objects: 100% (105/105), done.
+%       remote: Total 106 (delta 9), reused 0 (delta 0)
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%       完成.
+%       处理 delta 中: 100% (9/9), 完成.
+%       正在检出文件: 100% (75/75), 完成.
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%     \end{terminal}
+%   \end{Example}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \begin{terminal*}[os=ubuntu,theme=light][底线注释]{窗口标题}
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%       git clone git@gitee.com:xxxxxx/xxxxxx
+%       正克隆到 'xxxxxx'...
+%       remote: Enumerating objects: 106, done.
+%       remote: Counting objects: 100% (106/106), done.
+%       remote: Compressing objects: 100% (105/105), done.
+%       remote: Total 106 (delta 9), reused 0 (delta 0)
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
+%       完成.
+%       处理 delta 中: 100% (9/9), 完成.
+%       正在检出文件: 100% (75/75), 完成.
+%       xxxxxx@xxxxxx-lap:~/Desktop $
+%     \end{terminal*}
+%   \end{Example}
+%
+% \subsubsection{\tn{termfile}/\tn{termfile*}命令}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \termset{os=ubuntu,theme=dark}
+%     \termfile{窗口标题}{testsh}
+%   \end{Example}
+%
+%   \begin{Example}[frame=none,numbers=left,gobble=2]
+%     \centering
+%     \termfile*[os=ubuntu,theme=light][底线注释]{窗口标题}{testsh}
+%   \end{Example}
+%
+
+    \NewDocumentEnvironment{ terminal }{O{} O{} m }
+      {
+        \bool_set_false:N  \l_@@_comment_bool
+        \group_begin:
+        \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
+        \@@_comment_tcbset:n { #2 }
+        \@@_terminal_theme_select:
+        \@@_minted_tcbset:
+        \tcbset{ title={#3} }%
+        \tcblisting{}
+      }{
+        \endtcblisting
+        \group_end:
+      }
+
+    \NewDocumentEnvironment{ terminal* }{O{} O{} m }
+      {
+        \bool_set_true:N \l_@@_comment_bool
+        \group_begin:
+        \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
+        \@@_comment_tcbset:n { #2 }
+        \@@_terminal_theme_select:
+        \@@_minted_tcbset:
+        \tcbset{ title={#3} }%
+        \tcblisting{}
+      }{
+        \endtcblisting
+        \group_end:
+      }
