@@ -52,7 +52,7 @@ Contributing
     (2). Issues和PR: [issue](https://github.com/registor/termsim/issues) or [pull request](https://github.com/registor/termsim/pulls).
 
 2. gitee仓库:
-    (1). 仓库地址: [termsim-l3](https://gitee.com/nwafu_nan/termsim)
+    (1). 仓库地址: [termsim](https://gitee.com/nwafu_nan/termsim)
     (2). Issues and PR: [issue](https://gitee.com/nwafu_nan/termsim/issues) or [pull request](https://gitee.com/nwafu_nan/termsim/pulls).
 
 Copyright and Licence
@@ -157,7 +157,7 @@ Copyright and Licence
 %</internal>
 %<package>\NeedsTeXFormat{LaTeX2e}[2020/10/01]
 %<package>\RequirePackage{expl3}
-%<+package>\GetIdInfo$Id: termsim.dtx 1.0.0 2021-12-14 08:00:00 +0800 Nan Geng <nangeng@nwafu.edu.cn> $
+%<+package>\GetIdInfo$Id: termsim.dtx 1.1.0 2021-12-24 08:00:00 +0800 Nan Geng <nangeng@nwafu.edu.cn> $
 %<package>  {Terminal simulation with tcolorbox and minted/listings.}
 %<package>\ProvidesExplPackage{\ExplFileName}
 %<package>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
@@ -168,9 +168,6 @@ Copyright and Licence
 \usepackage{xcolor}
 \usepackage{xcolor-material}
 \usepackage{termsim}
-\renewcommand*\marg[1]{\{\meta{#1}\}}
-\renewcommand*\oarg[1]{[\meta{#1}]}
-\renewcommand*\parg[1]{(\meta{#1})}
 \NewDocumentCommand{\init}{+v}{\hspace{\fill}初始值~=~\textcolor{blue}{\bfseries#1}}
 \DeclareDocumentCommand\opt{m}{\texttt{#1}}
 \DeclareDocumentCommand\kvopt{mm}
@@ -279,7 +276,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=win10,theme=dark,shstretch=1.0}
 %\begin{terminal}{窗口标题}
 %C:\Users\Administrator 的目录
@@ -322,7 +319,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termfile{窗口标题}{test.bat}
 %\end{minipage}
 %\end{center}
@@ -451,7 +448,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=win10,theme=dark,shstretch=1.0}
 %\begin{terminal}{窗口标题}
 %C:\Users\Administrator 的目录
@@ -481,7 +478,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\begin{terminal*}[os=win10,theme=light][底线注释]{窗口标题}
 %C:\Users\Administrator 的目录
 %2018/07/21  15:39    <DIR>          .
@@ -505,7 +502,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=win10,theme=dark}
 %\termfile{窗口标题}{test.bat}
 %\end{minipage}
@@ -517,7 +514,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termfile*[os=win10,theme=light][底线注释]{窗口标题}{test.bat}
 %\end{minipage}
 %\end{center}
@@ -539,7 +536,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=mac,theme=dark}
 %\begin{terminal}{窗口标题}
 %xxxxxx@xxxxxx-lap:~$ ls
@@ -561,7 +558,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\begin{terminal*}[os=mac,theme=light][底线注释]{窗口标题}
 %xxxxxx@xxxxxx-lap:~$ ls
 %Desktop     Downloads   p2         Public   Templates   Videos
@@ -580,7 +577,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=mac,theme=dark}
 %\termfile{窗口标题}{testls}
 %\end{minipage}
@@ -592,7 +589,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termfile*[os=mac,theme=light][底线注释]{窗口标题}{testls}
 %\end{minipage}
 %\end{center}
@@ -612,8 +609,7 @@ Copyright and Licence
 %       remote: Counting objects: 100% (106/106), done.
 %       remote: Compressing objects: 100% (105/105), done.
 %       remote: Total 106 (delta 9), reused 0 (delta 0)
-%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
-%       完成.
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s, 完成.
 %       处理 delta 中: 100% (9/9), 完成.
 %       正在检出文件: 100% (75/75), 完成.
 %       xxxxxx@xxxxxx-lap:~/Desktop $
@@ -621,7 +617,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=ubuntu,theme=dark}
 %\begin{terminal}{窗口标题}
 %xxxxxx@xxxxxx-lap:~/Desktop $
@@ -631,8 +627,7 @@ Copyright and Licence
 %remote: Counting objects: 100% (106/106), done.
 %remote: Compressing objects: 100% (105/105), done.
 %remote: Total 106 (delta 9), reused 0 (delta 0)
-%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
-%完成.
+%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s, 完成.
 %处理 delta 中: 100% (9/9), 完成.
 %正在检出文件: 100% (75/75), 完成.
 %xxxxxx@xxxxxx-lap:~/Desktop $
@@ -650,16 +645,16 @@ Copyright and Licence
 %       remote: Counting objects: 100% (106/106), done.
 %       remote: Compressing objects: 100% (105/105), done.
 %       remote: Total 106 (delta 9), reused 0 (delta 0)
-%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
-%       完成.
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s, 完成.
 %       处理 delta 中: 100% (9/9), 完成.
 %       正在检出文件: 100% (75/75), 完成.
 %       xxxxxx@xxxxxx-lap:~/Desktop $
 %     \end{terminal*}
 %   \end{Verbatim}
 %
+%\newpage
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\begin{terminal*}[os=ubuntu,theme=light][底线注释]{窗口标题}
 %xxxxxx@xxxxxx-lap:~/Desktop $
 %git clone git@gitee.com:xxxxxx/xxxxxx
@@ -668,8 +663,7 @@ Copyright and Licence
 %remote: Counting objects: 100% (106/106), done.
 %remote: Compressing objects: 100% (105/105), done.
 %remote: Total 106 (delta 9), reused 0 (delta 0)
-%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
-%完成.
+%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s, 完成.
 %处理 delta 中: 100% (9/9), 完成.
 %正在检出文件: 100% (75/75), 完成.
 %xxxxxx@xxxxxx-lap:~/Desktop $
@@ -686,7 +680,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=ubuntu,theme=dark}
 %\termfile{窗口标题}{testsh}
 %\end{minipage}
@@ -698,7 +692,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termfile*[os=ubuntu,theme=light][底线注释]{窗口标题}{testsh}
 %\end{minipage}
 %\end{center}
@@ -717,8 +711,7 @@ Copyright and Licence
 %       remote: Counting objects: 100% (106/106), done.
 %       remote: Compressing objects: 100% (105/105), done.
 %       remote: Total 106 (delta 9), reused 0 (delta 0)
-%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
-%       完成.
+%       接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s, 完成.
 %       处理 delta 中: 100% (9/9), 完成.
 %       正在检出文件: 100% (75/75), 完成.
 %       xxxxxx@xxxxxx-lap:~/Desktop $
@@ -726,7 +719,7 @@ Copyright and Licence
 %   \end{Verbatim}
 %
 %\begin{center}
-%\begin{minipage}{0.75\textwidth}
+%\begin{minipage}{0.85\textwidth}
 %\termset{os=ubuntu,theme=white}
 %\begin{terminal}{窗口标题}
 %xxxxxx@xxxxxx-lap:~/Desktop $
@@ -736,8 +729,7 @@ Copyright and Licence
 %remote: Counting objects: 100% (106/106), done.
 %remote: Compressing objects: 100% (105/105), done.
 %remote: Total 106 (delta 9), reused 0 (delta 0)
-%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s,
-%完成.
+%接收对象中: 100% (106/106), 237.88 MiB | 730.00 KiB/s, 完成.
 %处理 delta 中: 100% (9/9), 完成.
 %正在检出文件: 100% (75/75), 完成.
 %xxxxxx@xxxxxx-lap:~/Desktop $
@@ -993,6 +985,8 @@ Copyright and Licence
 }%
 %    \end{macrocode}
 %
+% \changes{v1.1.0}{2021/12/24}{调整Win10 Logo的yshift}
+%
 % 定义Win10终端盒子的tcolorbox样式
 %
 %    \begin{macrocode}
@@ -1016,15 +1010,15 @@ Copyright and Licence
       right~color=WinBlue%
     },%
     overlay~unbroken = {%
-      \node[inner~sep=0pt,anchor=north~west,yshift=-3pt,xshift=1.2pt,text=black]
+      \node[inner~sep=0pt,anchor=north~west,yshift=-2pt,xshift=1.2pt,text=black]
         at (frame.north~west){\WindowsLogo};
-      \node[inner~sep=0pt,anchor=north~east,yshift=-5pt,xshift=-8pt,text=black]
+      \node[inner~sep=0pt,anchor=north~east,yshift=-4pt,xshift=-8pt,text=black]
         at (frame.north~east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};
     },%
     overlay~first = {%
-      \node[inner~sep=0pt,anchor=north~west,yshift=-3pt,xshift=1.0pt,text=black]
+      \node[inner~sep=0pt,anchor=north~west,yshift=-2pt,xshift=1.0pt,text=black]
         at (frame.north~west){\WindowsLogo};
-      \node[inner~sep=0pt,anchor=north~east,yshift=-5pt,xshift=-8pt,text=black]
+      \node[inner~sep=0pt,anchor=north~east,yshift=-4pt,xshift=-8pt,text=black]
         at (frame.north~east){\rule{0.8em}{0.6pt}\quad$\square$\quad{\Large$\times$}};
     }%
   },
@@ -1244,6 +1238,8 @@ Copyright and Licence
 % \end{macro}
 %
 % \subsection{内部函数}
+%
+% \changes{v1.1.0}{2021/12/24}{为minted宏包添加autogobble参数}
 %
 % \begin{macro}{\@@_minted_tcbset:}
 % 设置终端盒子minted宏包参数。

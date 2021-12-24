@@ -46,7 +46,7 @@ Contributing
     (2). Issues和PR: [issue](https://github.com/registor/termsim/issues) or [pull request](https://github.com/registor/termsim/pulls).
 
 2. gitee仓库:
-    (1). 仓库地址: [termsim-l3](https://gitee.com/nwafu_nan/termsim)
+    (1). 仓库地址: [termsim](https://gitee.com/nwafu_nan/termsim)
     (2). Issues and PR: [issue](https://gitee.com/nwafu_nan/termsim/issues) or [pull request](https://gitee.com/nwafu_nan/termsim/pulls).
 
 Copyright and Licence

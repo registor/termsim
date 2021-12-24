@@ -283,6 +283,10 @@ refs
 ./ref/
 ref/
 
+test
+test/
+./test/
+
 
 
 # ctans
