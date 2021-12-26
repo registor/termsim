@@ -1,0 +1,563 @@
+\documentclass{ctxdoc}
+\usepackage{minted}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{xcolor-material}
+\usepackage{termsim}
+
+\NewDocumentCommand{\init}{+v}{\hspace{\fill}Init~=~\textcolor{blue}{\bfseries#1}}
+\DeclareDocumentCommand\opt{m}{\texttt{#1}}
+\DeclareDocumentCommand\kvopt{mm}
+  {\texttt{#1\breakablethinspace=\breakablethinspace#2}}
+\def\breakablethinspace{\hskip 0.16667em\relax}
+
+ \title{\bfseries\pkg{termsim}: terminal simulation pachage}
+ \author{nangeng\\ \url{nangeng@nwafu.edu.cn}}
+ \date{2021/12/26\qquad v1.1.1\thanks{\url{https://github.com/registor/termsim}}\thanks{\url{https://gitee.com/nwafu_nan/termsim}}}
+
+\begin{document}
+
+ \maketitle
+
+ \begin{abstract}
+
+ The \pkg{termsim} is a \pkg{tcolorbox}-based package developed with \LaTeX3,
+ which provides a \env{terminal} environment and a \tn{termfile} macro for simulationg
+ terminal in Win10, Mac or Ubuntu with dark, light or white color theme.
+ The \env{terminal} environment creates terminal with it's body and
+ the \tn{termfile} macro is used to read in the specified file and output it in the simulated terminal.
+ The starred \env{terminal*} environment and \tn{termfile*} macro are also provided
+ to simulate a terminal with comments at the bottom of terminal.
+ All style and color theme can be setted by \tn{termset} macro
+ or environment's and macro's key-value options.
+
+ \end{abstract}
+
+ \tableofcontents
+
+ \section{Introduction}
+
+ \pkg{termsim} is an \LaTeX package for simulating Win10, Mac or Ubuntu
+ terminal with dark, light or white color theme.
+
+ \section{Interface}
+
+ \subsection{\env{terminal} and \env{terminal*} environment}
+
+ \begin{function}[added=2021-12-17,updated=2021-12-17]{terminal,terminal*}
+   \begin{syntax}
+     \tn{begin}\{terminal\} \oarg{options} \Arg{terminal title}
+     .....
+     \tn{end}\{terminal\}
+
+     \tn{begin}\{terminal*\} \oarg{options} \oarg{comments} \Arg{terminal title}
+     .....
+     \tn{end}\{terminal*\}
+   \end{syntax}
+
+   Typesetting terminal with environment body.
+   You can set the title for the terminal by using \Arg{terminal title}.
+
+   The appearance of the terminal is set by key-value in \oarg{options}.
+
+   The starred environment \texttt{terminal*} is used to add comments at the bottom of terminal,
+   note that this needs to be done with \oarg{comments} after \oarg{options}.
+
+   Of course the key-value \oarg{options} can alse be set 
+   via the comma-separated key-value list of the \tn{termset} macro.
+
+ \end{function}
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \termset{os=win10,theme=dark,shstretch=1.0}
+     \bgin{terminal}{terminal title}
+       Volume in drive C is SSD_files
+       Volume Serial Number is 0001-C78B
+
+       Directory of C:\Users\Administrator
+
+       2018/07/21  15:39    <DIR>          .
+       2018/07/21  15:39    <DIR>          ..
+       2018/07/13  08:35    <DIR>          3D Objects
+       2018/07/13  08:35    <DIR>          Contacts
+       2018/08/06  07:46    <DIR>          Desktop
+                       2 File(s)      6,029,312 bytes
+                  18 Dir(s) 14,035,107,840 bytes free
+     \end{terminal}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=win10,theme=dark,shstretch=1.0}
+\begin{terminal}{terminal title}
+    Volume in drive C is SSD_files
+    Volume Serial Number is 0001-C78B
+    Directory of C:\Users\Administrator
+  2018/07/21  15:39    <DIR>          .
+  2018/07/21  15:39    <DIR>          ..
+  2018/07/13  08:35    <DIR>          3D Objects
+  2018/07/13  08:35    <DIR>          Contacts
+  2018/08/06  07:46    <DIR>          Desktop
+                  2 File(s)      6,029,312 bytes
+             18 Dir(s) 14,035,107,840 bytes free
+\end{terminal}
+\end{minipage}
+\end{center}
+
+ \subsection{\tn{termfile} and \tn{termfile*} macro}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{\termfile,\termfile*}
+   \begin{syntax}
+     \tn{termfile}  \oarg{options} \Arg{terminal title} \Arg{contents file}
+     \tn{termfile*} \oarg{options} \oarg{comments} \Arg{terminal title} \Arg{contentes file}
+   \end{syntax}
+
+   Typesetting terminal from a file.
+   You can set the title for the terminal by using \Arg{terminal title}.
+
+   The appearance of the terminal is set by key-value in \oarg{options}.
+
+   The starred macro \texttt{termfile*} is used to add comments at the bottom of terminal,
+   note that this needs to be done with \oarg{comments} after \oarg{options}.
+
+   Of course the key-value \oarg{options} can alse be set
+   via the comma-separated key-value list of the \tn{termset} macro.
+ \end{function}
+
+ \newpage
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \termfile{terminal title}{test.bat}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termfile{terminal title}{test.bat}
+\end{minipage}
+\end{center}
+
+\subsection{\tn{termset} macro}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{\termset}
+   \begin{syntax}
+     \tn{termset} \marg{key-values}
+   \end{syntax}
+   The arguments to \tn{termset} are a set of options separated by commas
+   in the form \kvopt{\meta{key}}{\meta{value}}.
+   The \meta{value} of some options can be omitted.
+   For the same option, subsequent settings will override previous settings.
+
+   Most options was initialized with default values.
+
+   \tn{termset}  uses \LaTeX3 style key settings,
+   supporting different types and multiple levels of option settings.
+   In the \kvopt{\meta{key}}{\meta{value}} list, the spaces around "|=|"
+   do not affect anything; However, it should be noted that \textbf{no blank lines}
+   are allowed in the list.
+   The "|= true|" in the parameter \kvopt{\meta{option}}{true} for the Boolean type can be omitted.
+
+ \end{function}
+
+ \section{Options}
+
+ The \pkg{termsim} package provides a number of options to set the style of the terminal.
+ The following options can be set with \tn{termset} macro.
+ Also, these options can be set with the \env{terminal}(\env{terminal*}) environment's
+ or the \tn{termfile}(\tn{termfile*}) command's \oarg{options}.
+
+ \subsection{shell code engine}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{minted}
+   \begin{syntax}
+     minted = <\TTF> \init{true}
+   \end{syntax}
+   \opt{minted} is used to set shell code engine, if it is \textbf{true} then
+   the \pkg{minted} package is used, if it is \textbf{false} then
+   the \pkg{listings} package is used. The default value is \textbf{true}.
+ \end{function}
+
+ \subsection{os type}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{os}
+   \begin{syntax}
+     os =  <win10|mac|ubuntu> \init{win10}
+   \end{syntax}
+   \opt{os} is used to set Operating System type. The default value is \textbf{win10}.
+ \end{function}
+
+ \subsection{color theme}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{theme}
+   \begin{syntax}
+     theme =  <dark|light|white> \init{dark}
+   \end{syntax}
+   \opt{theme} is used to set terminal color theme. The default value is \textbf{dark}.
+ \end{function}
+
+ \subsection{shell code style}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{shstyle}
+   \begin{syntax}
+     shstyle = \Arg{style} \init{bw}
+   \end{syntax}
+   \opt{shstyle} is used to set shell code style, valid only for the \pkg{minted} engine.
+   The default value is \textbf{bw}.
+ \end{function}
+
+ \subsection{shell code fontsize}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{shsize}
+   \begin{syntax}
+     shsize = \Arg{fontsize} \init{\small}
+   \end{syntax}
+   \opt{shsize} is used to set shell code fontsize, valid only for \pkg{minted} engine.
+   The default value is\textbf{\tn{small}}.
+ \end{function}
+
+ \subsection{comment format}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{commentf}
+   \begin{syntax}
+     commentf = \Arg{format group} \init{\small\sffamily}
+   \end{syntax}
+   \opt{commentf} is used to set comment format at terminal bottom.
+   The default value is \textbf{\tn{small}\tn{sffamily}}.
+ \end{function}
+
+ \subsection{shell code baseline stretch}
+
+ \begin{function}[added=2021-12-18,updated=2021-12-18]{shstretch}
+   \begin{syntax}
+     shstretch = \Arg{float number} \init{1.0}
+   \end{syntax}
+   \opt{shstretch} is used to set shell code baseline stretch, valid only for \pkg{minted} engine.
+   The default value is\textbf{1.0}.
+ \end{function}
+
+ \newpage
+
+ \section{Examples}
+
+ The \pkg{termsim} package can be used in situations
+ where the operating system terminal window needs to be typeset
+ to avoid the use of screenshots.
+ Terminal windows can be with or without underline comments
+ and can be dark, light or white color themes.
+
+ \subsection{Win10 terminal}
+
+ \subsubsection{\env{terminal} or \env{terminal*} environment}
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \termset{os=win10,theme=dark,shstretch=1.0}
+     \begin{terminal}{terminal title}
+       Volume in drive C is SSD_files
+       Volume Serial Number is 0001-C78B
+       Directory of C:\Users\Administrator
+       2018/07/21  15:39    <DIR>          .
+       2018/07/21  15:39    <DIR>          ..
+       2018/07/13  08:35    <DIR>          3D Objects
+       2018/07/13  08:35    <DIR>          Contacts
+       2018/08/06  07:46    <DIR>          Desktop
+                       2 File(s)      6,029,312 bytes
+                  18 Dir(s) 14,035,107,840 bytes free
+     \end{terminal}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=win10,theme=dark,shstretch=1.0}
+\begin{terminal}{terminal title}
+  Volume in drive C is SSD_files
+  Volume Serial Number is 0001-C78B
+  Directory of C:\Users\Administrator
+2018/07/21  15:39    <DIR>          .
+2018/07/21  15:39    <DIR>          ..
+2018/07/13  08:35    <DIR>          3D Objects
+2018/07/13  08:35    <DIR>          Contacts
+2018/08/06  07:46    <DIR>          Desktop
+                2 File(s)      6,029,312 bytes
+           18 Dir(s) 14,035,107,840 bytes free
+\end{terminal}
+\end{minipage}
+\end{center}
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \begin{terminal*}[os=win10,theme=light][comment text]{terminal title}
+       Volume in drive C is SSD_files
+       Volume Serial Number is 0001-C78B
+       Directory of C:\Users\Administrator
+       2018/07/21  15:39    <DIR>          .
+       2018/07/21  15:39    <DIR>          ..
+       2018/07/13  08:35    <DIR>          3D Objects
+       2018/07/13  08:35    <DIR>          Contacts
+       2018/08/06  07:46    <DIR>          Desktop
+                       2 File(s)      6,029,312 bytes
+                  18 Dir(s) 14,035,107,840 bytes free
+     \end{terminal*}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\begin{terminal*}[os=win10,theme=light][comment text]{terminal title}
+  Volume in drive C is SSD_files
+  Volume Serial Number is 0001-C78B
+  Directory of C:\Users\Administrator
+2018/07/21  15:39    <DIR>          .
+2018/07/21  15:39    <DIR>          ..
+2018/07/13  08:35    <DIR>          3D Objects
+2018/07/13  08:35    <DIR>          Contacts
+2018/08/06  07:46    <DIR>          Desktop
+                2 File(s)      6,029,312 bytes
+           18 Dir(s) 14,035,107,840 bytes free
+\end{terminal*}
+\end{minipage}
+\end{center}
+
+ \subsubsection{\tn{termfile} or \tn{termfile*} macro}
+
+   \begin{Verbatim}[frame=none,numbers=left]
+     \centering
+     \termset{os=win10,theme=dark}
+     \termfile{terminal title}{test.bat}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=win10,theme=dark}
+\termfile{terminal title}{test.bat}
+\end{minipage}
+\end{center}
+
+   \begin{Verbatim}[frame=none,numbers=left]
+     \centering
+     \termfile*[os=win10,theme=light][comment text]{terminal title}{test.bat}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termfile*[os=win10,theme=light][comment text]{terminal title}{test.bat}
+\end{minipage}
+\end{center}
+
+ \newpage
+ \subsection{Mac terminal}
+
+ \subsubsection{\env{terminal} or \env{terminal*} environment}
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \termset{os=mac,theme=dark}
+     \begin{terminal}{terminal title}
+       xxxxxx@xxxxxx-lap:~$ ls
+       Desktop     Downloads   p2         Public   Templates   Videos
+       Documents   Music       Pictures   snap    '#test#'     workspace
+       xxxxxx@xxxxxx-lap:~$
+     \end{terminal}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=mac,theme=dark}
+\begin{terminal}{terminal title}
+  xxxxxx@xxxxxx-lap:~$ ls
+  Desktop     Downloads   p2         Public   Templates   Videos
+  Documents   Music       Pictures   snap    '#test#'     workspace
+  xxxxxx@xxxxxx-lap:~$
+\end{terminal}
+\end{minipage}
+\end{center}
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \begin{terminal*}[os=mac,theme=light][comment text]{terminal title}
+       xxxxxx@xxxxxx-lap:~$ ls
+       Desktop     Downloads   p2         Public   Templates   Videos
+       Documents   Music       Pictures   snap    '#test#'     workspace
+       xxxxxx@xxxxxx-lap:~$
+     \end{terminal*}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\begin{terminal*}[os=mac,theme=light][comment text]{terminal title}
+  xxxxxx@xxxxxx-lap:~$ ls
+  Desktop     Downloads   p2         Public   Templates   Videos
+  Documents   Music       Pictures   snap    '#test#'     workspace
+  xxxxxx@xxxxxx-lap:~$
+\end{terminal*}
+\end{minipage}
+\end{center}
+
+ \subsubsection{\tn{termfile} or \tn{termfile*} macro}
+
+   \begin{Verbatim}[frame=none,numbers=left]
+     \centering
+     \termset{os=mac,theme=dark}
+     \termfile{terminal title}{testls}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=mac,theme=dark}
+\termfile{terminal title}{testls}
+\end{minipage}
+\end{center}
+ \newpage
+   \begin{Verbatim}[frame=none,numbers=left]
+     \centering
+     \termfile*[os=mac,theme=light][comment text]{terminal title}{testls}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termfile*[os=mac,theme=light][comment text]{terminal title}{testls}
+\end{minipage}
+\end{center}
+
+ \subsection{Ubuntu terminal}
+
+ \subsubsection{\env{terminal} or \env{terminal*} environment}
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \termset{os=ubuntu,theme=dark}
+     \begin{terminal}{terminal title}
+       xxxxxx@xxxxxx-lap:~/Desktop $
+       git clone git@gitee.com:xxxxxx/xxxxxx
+       Cloning into 'xxxxxx'...
+       remote: Enumerating objects: 106, done.
+       remote: Counting objects: 100% (106/106), done.
+       remote: Compressing objects: 100% (105/105), done.
+       remote: Total 106 (delta 9), reused 0 (delta 0)
+       Receiving objects: 100% (106/106), 237.88 MiB | 730.00 KiB/s, done.
+       Resolving delta: 100% (9/9), done.
+       Unpacking: 100% (75/75), done.
+       xxxxxx@xxxxxx-lap:~/Desktop $
+     \end{terminal}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=ubuntu,theme=dark}
+\begin{terminal}{terminal title}
+  xxxxxx@xxxxxx-lap:~/Desktop $
+  git clone git@gitee.com:xxxxxx/xxxxxx
+  Cloning into 'xxxxxx'...
+  remote: Enumerating objects: 106, done.
+  remote: Counting objects: 100% (106/106), done.
+  remote: Compressing objects: 100% (105/105), done.
+  remote: Total 106 (delta 9), reused 0 (delta 0)
+  Receiving objects: 100% (106/106), 237.88 MiB | 730.00 KiB/s, done.
+  Resolving delta: 100% (9/9), done.
+  Unpacking: 100% (75/75), done.
+  xxxxxx@xxxxxx-lap:~/Desktop $
+\end{terminal}
+\end{minipage}
+\end{center}
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \begin{terminal*}[os=ubuntu,theme=light][comment text]{terminal title}
+       xxxxxx@xxxxxx-lap:~/Desktop $
+       git clone git@gitee.com:xxxxxx/xxxxxx
+       Cloning into 'xxxxxx'...
+       remote: Enumerating objects: 106, done.
+       remote: Counting objects: 100% (106/106), done.
+       remote: Compressing objects: 100% (105/105), done.
+       remote: Total 106 (delta 9), reused 0 (delta 0)
+       Receiving objects: 100% (106/106), 237.88 MiB | 730.00 KiB/s, done.
+       Resolving delta: 100% (9/9), done.
+       Unpacking: 100% (75/75), done.
+       xxxxxx@xxxxxx-lap:~/Desktop $
+     \end{terminal*}
+   \end{Verbatim}
+\newpage
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\begin{terminal*}[os=ubuntu,theme=light][comment text]{terminal title}
+  xxxxxx@xxxxxx-lap:~/Desktop $
+  git clone git@gitee.com:xxxxxx/xxxxxx
+  Cloning into 'xxxxxx'...
+  remote: Enumerating objects: 106, done.
+  remote: Counting objects: 100% (106/106), done.
+  remote: Compressing objects: 100% (105/105), done.
+  remote: Total 106 (delta 9), reused 0 (delta 0)
+  Receiving objects: 100% (106/106), 237.88 MiB | 730.00 KiB/s, done.
+  Resolving delta: 100% (9/9), done.
+  Unpacking: 100% (75/75), done.
+  xxxxxx@xxxxxx-lap:~/Desktop $
+\end{terminal*}
+\end{minipage}
+\end{center}
+
+ \subsubsection{\tn{termfile} or \tn{termfile*} macro}
+
+   \begin{Verbatim}[frame=none,numbers=left]
+     \centering
+     \termset{os=ubuntu,theme=dark}
+     \termfile{terminal title}{testsh}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=ubuntu,theme=dark}
+\termfile{terminal title}{testsh}
+\end{minipage}
+\end{center}
+
+   \begin{Verbatim}[frame=none,numbers=left]
+     \centering
+     \termfile*[os=ubuntu,theme=light][comment text]{terminal title}{testsh}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termfile*[os=ubuntu,theme=light][comment text]{terminal title}{testsh}
+\end{minipage}
+\end{center}
+
+ You can also use the white color theme and
+ use black text on a white background for print on paper.
+
+   \begin{Verbatim}[frame=none,numbers=left,gobble=5]
+     \centering
+     \termset{os=ubuntu,theme=white}
+     \begin{terminal}{terminal title}
+       xxxxxx@xxxxxx-lap:~/Desktop $
+       git clone git@gitee.com:xxxxxx/xxxxxx
+       Cloning into 'xxxxxx'...
+       remote: Enumerating objects: 106, done.
+       remote: Counting objects: 100% (106/106), done.
+       remote: Compressing objects: 100% (105/105), done.
+       remote: Total 106 (delta 9), reused 0 (delta 0)
+       Receiving objects: 100% (106/106), 237.88 MiB | 730.00 KiB/s, done.
+       Resolving delta: 100% (9/9), done.
+       Unpacking: 100% (75/75), done.
+       xxxxxx@xxxxxx-lap:~/Desktop $
+     \end{terminal}
+   \end{Verbatim}
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\termset{os=ubuntu,theme=white}
+\begin{terminal}{terminal title}
+  xxxxxx@xxxxxx-lap:~/Desktop $
+  git clone git@gitee.com:xxxxxx/xxxxxx
+  Cloning into 'xxxxxx'...
+  remote: Enumerating objects: 106, done.
+  remote: Counting objects: 100% (106/106), done.
+  remote: Compressing objects: 100% (105/105), done.
+  remote: Total 106 (delta 9), reused 0 (delta 0)
+  Receiving objects: 100% (106/106), 237.88 MiB | 730.00 KiB/s, done.
+  Resolving delta: 100% (9/9), done.
+  Unpacking: 100% (75/75), done.
+  xxxxxx@xxxxxx-lap:~/Desktop $
+\end{terminal}
+\end{minipage}
+\end{center}
+
+\end{document}

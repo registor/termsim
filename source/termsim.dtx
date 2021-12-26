@@ -157,7 +157,7 @@ Copyright and Licence
 %</internal>
 %<package>\NeedsTeXFormat{LaTeX2e}[2020/10/01]
 %<package>\RequirePackage{expl3}
-%<+package>\GetIdInfo$Id: termsim.dtx 1.1.0 2021-12-24 08:00:00 +0800 Nan Geng <nangeng@nwafu.edu.cn> $
+%<+package>\GetIdInfo$Id: termsim.dtx 1.1.1 2021-12-26 08:00:00 +0800 Nan Geng <nangeng@nwafu.edu.cn> $
 %<package>  {Terminal simulation with tcolorbox and minted/listings.}
 %<package>\ProvidesExplPackage{\ExplFileName}
 %<package>  {\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
@@ -186,7 +186,7 @@ Copyright and Licence
 %
 % \changes{v1.0.0}{2021/12/14}{开始编写模板}
 %
-% \CheckSum{376}
+% \CheckSum{318}
 % \GetFileId{termsim.sty}
 %
 % \CharacterTable
@@ -206,7 +206,7 @@ Copyright and Licence
 %   Right brace   \}     Tilde         \~}
 %
 %
-% \title{\bfseries\pkg{termsim}：终端窗口模拟宏包\\\bfseries\pkg{termsim}：terminal simulation pachage}
+% \title{\bfseries\pkg{termsim}：终端窗口模拟宏包\\\bfseries\pkg{termsim}：terminal simulation package}
 % \author{耿楠\\ \path{nangeng@nwafu.edu.cn}}
 % \date{\filedate\qquad\fileversion\thanks{\url{https://github.com/registor/termsim}}\thanks{\url{https://gitee.com/nwafu_nan/termsim}}}
 % \maketitle
@@ -817,43 +817,6 @@ Copyright and Licence
 \ExplSyntaxOn
 %    \end{macrocode}
 %
-% 解决minted的autogobble选项与Python3的兼容性问题
-% 和fancyvrb宏包命令变更的问题
-%
-% \url{https://github.com/gpoore/minted/issues/316}
-%
-%    \begin{macrocode}
-\ExplSyntaxOff
-\RequirePackage {regexpatch} % for starred \xpatchcmd which can replace all
-\makeatletter
-% trick, in order to get the integer value from either a macro or register
-% in an expandable way
-\def\minted@use@FancyVerbStartNum{\the\numexpr\FancyVerbStartNum}
-\def\minted@use@FancyVerbStopNum{\the\numexpr\FancyVerbStopNum}
-
-% patch for fivesum computation
-\xpatchcmd*\minted@pygmentize
-  {\ifx\FancyVerbStartNum\z@ 0\else\FancyVerbStartNum\fi}
-  {\minted@use@FancyVerbStartNum}
-  {}{\PatchFailed}
-\xpatchcmd*\minted@pygmentize
-  {\ifx\FancyVerbStopNum\z@ 0\else\FancyVerbStopNum\fi}
-  {\minted@use@FancyVerbStopNum}
-  {}{\PatchFailed}
-
-% patch for option "autogobble"
-\xpatchcmd\minted@autogobble
-  {\ifx\FancyVerbStartNum\z@ 0\else\FancyVerbStartNum\fi}
-  {\minted@use@FancyVerbStartNum}
-  {}{\PatchFailed}
-\xpatchcmd\minted@autogobble
-  {\ifx\FancyVerbStopNum\z@ 0\else\FancyVerbStopNum\fi}
-  {\minted@use@FancyVerbStopNum}
-  {}{\PatchFailed}
-\makeatother
-\ExplSyntaxOn
-%    \end{macrocode}
-%
 % 载入\pkg{tcolorbox}和\pkg{tikz}附加库
 %
 %    \begin{macrocode}
@@ -1117,8 +1080,7 @@ Copyright and Licence
 % \l_@@_code_style_tl,
 % \l_@@_code_fontsize_tl,
 % \l_@@_comment_format_tl,
-% \l_@@_baseline_stretch_tl,
-% \l_@@_linenumber_sep_tl
+% \l_@@_shell_baseline_stretch_fp
 %  }
 % 定义变量。
 %
@@ -1131,8 +1093,7 @@ Copyright and Licence
 \tl_new:N     \l_@@_shell_style_tl
 \tl_new:N     \l_@@_shell_fontsize_tl
 \tl_new:N     \l_@@_comment_format_tl
-\tl_new:N     \l_@@_shell_baseline_stretch_tl
-\tl_new:N     \l_@@_linenumber_sep_tl
+\fp_new:N     \l_@@_shell_baseline_stretch_fp
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1204,7 +1165,7 @@ Copyright and Licence
 % \begin{macro}{shstrech}
 % 基线伸展系数
 %    \begin{macrocode}
-    shstretch .tl_set:N  = \l_@@_shell_baseline_strech_tl,
+    shstretch .fp_set:N  = \l_@@_shell_baseline_strech_fp,
     shstretch .initial:n = 1.0,
 %    \end{macrocode}
 % \end{macro}
@@ -1249,12 +1210,12 @@ Copyright and Licence
   {
     \tcbset{
       listing~engine=minted,%
-      minted~style=\tl_use:N \l_@@_shell_style_tl,%
+      minted~style=#1,%
       minted~options={%
         autogobble,
         breaklines,%
         fontsize=\tl_use:N \l_@@_shell_fontsize_tl,%
-        baselinestretch=#1,%
+        baselinestretch=\fp_eval:n { \l_@@_shell_baseline_stretch_fp },%
         breaksymbolleft={},%
         linenos=false,%
       },%
@@ -1385,7 +1346,7 @@ Copyright and Licence
         \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
         \@@_comment_tcbset:n { #2 }
         \@@_terminal_theme_select:
-        \@@_minted_tcbset:V \l_@@_shell_baseline_stretch_tl
+        \@@_minted_tcbset:V \l_@@_shell_style_tl
         \tcbset{ title={#3} }%
         \tcblisting{}
       }{
@@ -1404,7 +1365,7 @@ Copyright and Licence
         \IfNoValueF{#1}{ \keys_set:nn { termsim } { #1 } }
         \@@_comment_tcbset:n { #2 }
         \@@_terminal_theme_select:
-        \@@_minted_tcbset:V \l_@@_shell_baseline_stretch_tl
+        \@@_minted_tcbset:V \l_@@_shell_style_tl
         \tcbset{ title={#3} }%
         \tcblisting{}
       }{
@@ -1429,7 +1390,7 @@ Copyright and Licence
         \IfNoValueF{#2}{ \keys_set:nn { termsim } { #2 } }
         \@@_comment_tcbset:n { #3 }
         \@@_terminal_theme_select:
-        \@@_minted_tcbset:V \l_@@_shell_baseline_stretch_tl
+        \@@_minted_tcbset:V \l_@@_shell_style_tl
         \tcbset{
           title={#4},
           listing~file={#5},
